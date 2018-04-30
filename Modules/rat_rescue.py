@@ -146,6 +146,18 @@ class Rescue(object):
 
             return all(conditions)
 
+    def __hash__(self)->int:
+        """
+        Computes and returns the hash for the object.
+
+        Specifically, Rescue's hash is that of its created_at attribute, which should only be
+            changed during object construction. (it is a read only property)
+
+        Returns:
+            int:  object's hash
+        """
+        return hash(self.created_at)
+
     @property
     def status(self)->Status:
         """
