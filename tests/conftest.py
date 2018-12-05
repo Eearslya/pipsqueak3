@@ -45,6 +45,7 @@ from Modules.epic import Epic
 from Modules.user import User
 from Modules.mark_for_deletion import MarkForDeletion
 from tests.mock_callables import CallableMock, AsyncCallableMock
+from Modules.galaxy import Galaxy
 
 
 @pytest.fixture(params=[("pcClient", Platforms.PC, "firestone", 24),
@@ -273,3 +274,13 @@ def async_callable_fx():
     See :class:`AsyncCallableMock`.
     """
     return AsyncCallableMock()
+
+@pytest.fixture
+def galaxy_fx():
+    """
+    Provides a galaxy object
+
+    Returns:
+        An initialized galaxy object
+    """
+    return Galaxy()
