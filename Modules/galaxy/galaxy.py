@@ -31,7 +31,7 @@ class Galaxy:
     def __init__(self, url: str = None):
         self.url = url or config['api']['url']
 
-    async def find_system_by_name(self, name: str) -> Optional[StarSystem]:
+    async def find_system_by_name(self, name: str, detailed: bool = True) -> Optional[StarSystem]:
         """
         Finds a single system by its name and return its StarSystem object
 
@@ -46,11 +46,12 @@ class Galaxy:
         result_count = data['meta']['results']['available']
         if result_count > 0:
             sys = data['data'][0]['attributes']
-            main_star = await self._call("api/stars",
-                                         {"filter[systemId64:eq]": sys['id64'],
-                                          "filter[isMainStar:eq]": 1})
-            if main_star['meta']['results']['available'] > 0:
-                sys['spectral_class'] = main_star['data'][0]['attributes']['subType'][0]
+            if detailed:
+                main_star = await self._call("api/stars",
+                                             {"filter[systemId64:eq]": sys['id64'],
+                                              "filter[isMainStar:eq]": 1})
+                if main_star['meta']['results']['available'] > 0:
+                    sys['spectral_class'] = main_star['data'][0]['attributes']['subType'][0]
             return StarSystem(position=Vector(**sys['coords']),
                               name=sys['name'],
                               spectral_class=sys.get('spectral_class'))
@@ -97,8 +98,8 @@ class Galaxy:
             ValueError: If either the start or end system cannot be found.
         """
 
-        start_system = await self.find_system_by_name(start)
-        end_system = await self.find_system_by_name(end)
+        start_system = await self.find_system_by_name(start, detailed=False)
+        end_system = await self.find_system_by_name(end, detailed=False)
         if start_system is None or end_system is None:
             raise ValueError("Invalid endpoints provided for the route!")
         # Because our "nearest system" calculations will be
@@ -154,7 +155,7 @@ class Galaxy:
                                                    new_position.z)
         # Check to ensure the data set is not missing or empty.
         if nearest:
-            return await self.find_system_by_name(nearest[0])
+            return await self.find_system_by_name(nearest[0], detailed=False)
 
     async def _find_nearest_systems(self,
                                     x: float,
