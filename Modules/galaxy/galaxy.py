@@ -37,6 +37,8 @@ class Galaxy:
 
         Args:
             name (str): The name of the system to search for.
+            detailed (bool): Whether or not to perform an additional API call for data on the
+                             main star.
 
         Returns:
             A ``StarSystem`` object representing the found system, or ``None`` if none was found.
