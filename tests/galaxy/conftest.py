@@ -187,14 +187,16 @@ def mock_system_api_server_fx():
 
         # - Fuelum to Beagle Point Waypoint 2
         api.get('http://mock.api/nearest'
-                '?x=-659.9347713269128&y=-85.86445074372631&z=39233.70563297652&aggressive=1&limit=10&cubesize=50',
+                '?x=-659.9347713269128&y=-85.86445074372631&z=39233.70563297652'
+                '&aggressive=1&limit=10&cubesize=50',
                 payload={
                     'data': [{'name': 'PRAE FLYI RO-I B29-113'}]
                 })
 
         # - Fuelum to Beagle Point Waypoint 3
         api.get('http://mock.api/nearest'
-                '?x=-981.8197621017766&y=-128.7478566272249&z=58844.498245920506&aggressive=1&limit=10&cubesize=50',
+                '?x=-981.8197621017766&y=-128.7478566272249&z=58844.498245920506'
+                '&aggressive=1&limit=10&cubesize=50',
                 payload={
                     'data': [{'name': 'CHUA EOHN CT-F D12-2'}]
                 })
@@ -212,7 +214,7 @@ def mock_system_api_server_fx():
 
 
 @pytest.fixture()
-def galaxy_fx(mock_system_api_server_fx) -> Galaxy: # pylint: disable=redefined-outer-name
+def galaxy_fx(mock_system_api_server_fx) -> Galaxy: # pylint: disable=redefined-outer-name,unused-argument
     """
     Test fixture for Galaxy. Includes a mock API server with pre-made calls.
     """
