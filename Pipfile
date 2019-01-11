@@ -12,11 +12,11 @@ psycopg2 = "*"
 humanfriendly = "*"
 
 [dev-packages]
+aioresponses = "*"
 pytest = "*"
 pytest-cov = "*"
 pytest-asyncio = "*"
 pylint = "*"
-pytest-httpserver = "*"
 codecov = "*"
 pycodestyle = "*"
 
